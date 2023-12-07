@@ -64,6 +64,18 @@ struct RandomGenerator {
         return result;
     }
 
+    template<class T = int>
+    void Shuffle(std::vector<T> &vct) {
+        std::shuffle(vct.begin(), vct.end(), gen_);
+    }
+
+    template<class T = int>
+    std::vector<T> GetShuffled(const std::vector<T> &vct) {
+        std::vector<T> result = vct;
+        std::shuffle(result.begin(), result.end(), gen_);
+        return result;
+    }
+
     std::string GenString(size_t n, char from = 'a', char to = 'z') {
         std::uniform_int_distribution<int> dist(from, to);
         std::string result(n, from);
