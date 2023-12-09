@@ -9,9 +9,8 @@
  **/
 
 
-using namespace std::chrono_literals;
-
-struct Timer {
+class Timer {
+public:
     typedef std::chrono::high_resolution_clock Clock;
 
     Timer() : begin_(Now()) {
