@@ -11,23 +11,27 @@
 
 class Timer {
 public:
-    typedef std::chrono::high_resolution_clock Clock;
+    typedef std::chrono::high_resolution_clock::time_point TimePoint;
 
     Timer() : begin_(Now()) {
     }
 
-    static Clock::time_point Now() {
-        return Clock::now();
+    static TimePoint Now() {
+        return std::chrono::high_resolution_clock::now();
     }
 
-    template<class T = std::chrono::milliseconds>
-    static auto ElapsedTime(Clock::time_point begin, Clock::time_point end = Now()) {
+    template<class T = std::chrono::duration<double>>
+    static auto ElapsedTime(TimePoint begin, TimePoint end = Now()) {
         return std::chrono::duration_cast<T>(end - begin).count();
     }
 
-    void PrintElapsedTime() {
-        auto sec = ElapsedTime<std::chrono::duration<double>>(begin_);
+    static void PrintElapsedTime(TimePoint begin, TimePoint end = Now()) {
+        auto sec = ElapsedTime(begin, end);
         std::cout << "Time: " << std::fixed << std::setprecision(3) << sec << "s" << std::endl;
+    }
+
+    void PrintElapsedTime() {
+        PrintElapsedTime(begin_);
     }
 
     ~Timer() {
@@ -35,6 +39,6 @@ public:
     }
 
 private:
-    const Clock::time_point begin_;
+    const TimePoint begin_;
 };
 
