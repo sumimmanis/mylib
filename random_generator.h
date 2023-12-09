@@ -8,7 +8,8 @@
 #include <vector>
 
 
-struct RandomGenerator {
+class RandomGenerator {
+public:
     explicit RandomGenerator(size_t seed = std::chrono::system_clock::now().time_since_epoch().count()) : gen_(seed) {
     }
 
